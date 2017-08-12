@@ -1,2 +1,2 @@
-# yndx-qual-js-2017
+# yndx-js-qual-2017
 Qualification...
