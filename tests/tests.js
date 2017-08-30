@@ -1,3 +1,4 @@
+QUnit.module("class Validator: /index.js");
 QUnit.test("Тестирование регулярного выражения (при item=\"fio\") в классе Validator: /index.js", function(assert) {
     let item = "fio";
     let regexp = /^[^\s]+[\s]+[^\s]+[\s]+[^\s]+$/;
@@ -91,6 +92,7 @@ QUnit.test("Тестирование регулярного выражения (
         "Проверка номера телефона \"8(111)200-30-40\" в неправильном формате c 8 вместо +7 и суммой цифр <30.");
 });
 
+QUnit.module("DOM: /index.html");
 /**
  * Перед выполнением тестов: загрузка файла index.html производится в файле tests.html
  */
@@ -105,10 +107,14 @@ QUnit.test("Тестирование DOM-структуры: index.html", functi
     assert.ok($result, "Существует div#resultContainer");
 });
 
+/*
+QUnit.module("class Sender: /index.js");
 QUnit.test("Тестирование класса Sender: /index.js", function(assert) {
-    assert.equal("", "", "");
+    //assert.equal("", "", "");
 });
 
+QUnit.module("class MyForm: /index.js");
 QUnit.test("Тестирование класса MyForm: /index.js", function(assert) {
-    assert.equal("", "", "");
+    //assert.equal("", "", "");
 });
+*/
