@@ -89,7 +89,20 @@ QUnit.test("Тестирование регулярного выражения (
     assert.notOk(
         validator.validate("8(111)200-30-40", item),
         "Проверка номера телефона \"8(111)200-30-40\" в неправильном формате c 8 вместо +7 и суммой цифр <30.");
+});
 
+/**
+ * Перед выполнением тестов: загрузка файла index.html производится в файле tests.html
+ */
+QUnit.test("Тестирование DOM-структуры: index.html", function(assert) {
+    let $form = $("#qunit-fixture").find("form");
+    let $result =  $("#qunit-fixture").find("#resultContainer");
+
+    assert.equal($form.attr("id"), "myForm", "Существует форма с id=myFrom");
+    assert.equal($form.find("input#fio").attr("id"), "fio", "Существует инпут с id=fio");
+    assert.equal($form.find("input#email").attr("id"), "email", "Существует инпут с id=email");
+    assert.equal($form.find("input#phone").attr("id"), "phone", "Существует инпут с id=phone");
+    assert.ok($result, "Существует div#resultContainer");
 });
 
 QUnit.test("Тестирование класса Sender: /index.js", function(assert) {
