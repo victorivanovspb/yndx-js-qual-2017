@@ -79,6 +79,17 @@ class Sender {
                     .text(message);
             }).bind(this)
         };
+
+        this.submitButton = {
+            $btn: this.$origin.find("#submitButton"),
+            disable: (function() {
+                this.submitButton.$btn.attr("disabled", "true");
+            }).bind(this),
+            enable: (function() {
+                this.submitButton.$btn.removeAttr("disabled");
+            }).bind(this),
+        };
+        this.submitButton.enable();
     }
 
     /**
@@ -91,6 +102,7 @@ class Sender {
                 let message = "";
                 switch(this.responseStatus) {
                     case "progress":
+                        this.submitButton.disable();
                         window.setTimeout(
                             this.sendRequest.bind(this),
                             parseInt(response["timeout"], 10)
@@ -99,16 +111,19 @@ class Sender {
                         break;
 
                     case "success":
+                        this.submitButton.enable();
                         this.requestSended = false;
                         message = "Success";
                         break;
 
                     case "error":
+                        this.submitButton.enable();
                         this.requestSended = false;
                         message = response["reason"];
                         break;
 
                     default:
+                        this.submitButton.enable();
                         this.responseStatus = "";
                         this.requestSended = false;
                         message = "";
@@ -120,6 +135,7 @@ class Sender {
         }).bind(this);
 
         if (this.responseStatus === "progress" || this.requestSended === false) {
+            this.submitButton.disable();
             let data = this.getData();
             $.ajax({
                 type: "GET",
