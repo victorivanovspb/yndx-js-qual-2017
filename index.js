@@ -259,6 +259,7 @@ $(document).ready(function() {
         .find("button#submitButton")
         .click(myForm.submit.bind(myForm));
 
+    /*
     let sample = {
         "fio" : "AAA BBB CCC",
         "email" : "aaa-bbb-ccc@yandex.ru",
@@ -266,4 +267,5 @@ $(document).ready(function() {
         "spec" : "Some field"
     };
     myForm.setData(sample);
+    */
 });
