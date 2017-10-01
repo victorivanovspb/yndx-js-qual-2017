@@ -1,6 +1,5 @@
-
-\.idea/
 node_modules/
 bower_components/
-js/dist/
 lib/
+js/dist/
+\.idea/
