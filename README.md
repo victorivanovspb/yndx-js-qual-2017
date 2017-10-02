@@ -1,6 +1,5 @@
 # yndx-js-qual-2017
 
-* ECMAScript 6
 * JQuery 3.2.1
 * QUnit 2.4.0
 * Node  
