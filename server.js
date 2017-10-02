@@ -10,11 +10,28 @@ app.use('/css', express.static('./css'));
 app.use('/json', express.static('./json'));
 
 app.get('/', (request, response) => {
+    console.log(request.url);
+
     response.writeHead(200, {'Content-Type': 'text/html'});
     response.write(
         fs.readFileSync('index.html')
     );
+    response.end();
+});
 
+app.get('/json', (request, response) => {
+    console.log(request.url);
+
+    let fileName = (Math.random() > .5)
+        ? 'progress'
+        : (Math.random() > .5)
+            ? 'success'
+            : 'error';
+
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.write(
+        fs.readFileSync(`./json/${fileName}.json`)
+    );
     response.end();
 });
 

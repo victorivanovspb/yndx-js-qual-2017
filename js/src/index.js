@@ -92,49 +92,8 @@ class Sender {
         this.submitButton.enable();
     }
 
-    /**
-     * Отправить AJAX-запрос.
-     */
-    sendRequest() {
-        let getResponse = (function(response) {
-            if (this.requestSended && response !== null) {
-                this.responseStatus = response["status"];
-                let message = "";
-                switch(this.responseStatus) {
-                    case "progress":
-                        this.submitButton.disable();
-                        window.setTimeout(
-                            this.sendRequest.bind(this),
-                            parseInt(response["timeout"], 10)
-                        );
-                        this.requestSended = true; // true, когда в состоянии 'progress'
-                        break;
-
-                    case "success":
-                        this.submitButton.enable();
-                        this.requestSended = false;
-                        message = "Success";
-                        break;
-
-                    case "error":
-                        this.submitButton.enable();
-                        this.requestSended = false;
-                        message = response["reason"];
-                        break;
-
-                    default:
-                        this.submitButton.enable();
-                        this.responseStatus = "";
-                        this.requestSended = false;
-                        message = "";
-                        break;
-                }
-                this.resultContainer
-                    .addState(this.responseStatus, message);
-            }
-        }).bind(this);
-
-        if (this.responseStatus === "progress" || this.requestSended === false) {
+    _submitReq() {
+        return new Promise((resolve, reject) => {
             this.submitButton.disable();
             let data = this.getData();
             $.ajax({
@@ -142,12 +101,56 @@ class Sender {
                 url: this.$origin.attr("action"),
                 dataType: "json",
                 data: data,
-                success: getResponse,
+                success: resolve,
+                error: reject,
                 cache: false
             });
-            this.responseStatus = "";
-            this.requestSended = true;
+        });
+    }
+
+    _parseResponse(response) {
+        let message = "";
+        switch(response["status"]) {
+            case "progress":
+                this.submitButton.disable();
+                setTimeout(
+                    this.sendRequest.bind(this),
+                    parseInt(response["timeout"], 10)
+                );
+                break;
+
+            case "success":
+                this.submitButton.enable();
+                message = "Success";
+                break;
+
+            case "error":
+                this.submitButton.enable();
+                message = response["reason"];
+                break;
+
+            default:
+                this.submitButton.enable();
+                this.responseStatus = "";
+                message = "";
+                break;
         }
+        this.resultContainer
+            .addState(this.responseStatus, message);
+    }
+
+    /**
+     * Отправить AJAX-запрос.
+     */
+    sendRequest() {
+        this._submitReq()
+            .then((response) => {
+                this._parseResponse(response);
+            })
+            .catch((reject) => {
+                console.error(reject);
+                this.submitButton.enable();
+            });
     }
 }
 
