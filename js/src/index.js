@@ -96,9 +96,7 @@ class FormInput {
  */
 class Form {
     constructor(formId, resultId) {
-        this.$origin = $(formId);
-        this.$form = this.$origin;
-        this.$result = $(resultId);
+        this.$form = $(`#${formId}`);
         this.inputs = [];
 
         let fio = new FormInput(this.$form, 'fio');
@@ -132,7 +130,7 @@ class Form {
         });
         this.inputs.push(phone);
 
-        this.resultContainer = new ResultContainer($(document), 'resultContainer');
+        this.resultContainer = new ResultContainer($(document), resultId);
         this.submitButton = new SubmitButton(this.$form, 'submitButton');
     }
 
@@ -242,7 +240,7 @@ class Form {
             let data = this.getData();
             $.ajax({
                 type: "GET",
-                url: this.$origin.attr("action"),
+                url: this.$form.attr("action"),
                 dataType: "json",
                 data: data,
                 success: resolve,
@@ -262,16 +260,15 @@ class Form {
 }
 
 $(document).ready(function() {
-    window['MyForm'] = new Form("#myForm", "#resultContainer");
-    MyForm.$origin
-        .find("button#submitButton")
+    window['MyForm'] = new Form('myForm', 'resultContainer');
+    MyForm.$form
+        .find('button#submitButton')
         .click(MyForm.submit.bind(MyForm));
 
-    let sample = {
-        "fio" : "AAA BBB CCC",
-        "email" : "aaa-bbb-ccc@yandex.ru",
-        "phone" : "+7 (111) 111-22-33",
-        "spec" : "Some field"
-    };
-    MyForm.setData(sample);
+    MyForm.setData({
+        fio : 'AAA BBB CCC',
+        email : 'aaa-bbb-ccc@yandex.ru',
+        phone : '+7 (111) 111-22-33',
+        spec : 'Some field'
+    });
 });
