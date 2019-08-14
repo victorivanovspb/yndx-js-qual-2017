@@ -134,11 +134,11 @@ class Form {
         this.submitButton = new SubmitButton(this.$form, 'submitButton');
     }
 
-    /**
-     * Запустить валидацию всех полей формы id=myForm (с исп. класса Validator).
-     * @returns {{isValid: boolean, errorFields: Array}} - возвращается объект с признаком результата валидации (isValid)
-     * и массивом названий полей, которые не прошли валидацию (errorFields).
-     */
+/**
+ * Запустить валидацию всех полей формы id=myForm (с исп. класса Validator).
+ * @returns {{isValid: boolean, errorFields: Array}} - возвращается объект с признаком результата валидации (isValid)
+ * и массивом названий полей, которые не прошли валидацию (errorFields).
+ */
     validate() {
         let errors = [];
         this.inputs.forEach((input) => {
@@ -163,9 +163,9 @@ class Form {
         }
     }
 
-    /**
-     * @returns {result} - возвращает объект с данными формы, где имена свойств совпадают с именами инпутов.
-     */
+/**
+ * @returns {result} - возвращает объект с данными формы, где имена свойств совпадают с именами инпутов.
+ */
     getData() {
         let result = {};
         this.inputs.forEach((input) => {
@@ -174,10 +174,10 @@ class Form {
         return result;
     }
 
-    /**
-     * @param data - Метод setData принимает объект с данными формы и устанавливает их инпутам формы.
-     * Поля кроме phone, fio, email игнорируются.
-     */
+/**
+ * @param data - Метод setData принимает объект с данными формы и устанавливает их инпутам формы.
+ * Поля кроме phone, fio, email игнорируются.
+ */
     setData({fio, email, phone}) {
         this.inputs.forEach((input) => {
             switch (input.name) {
@@ -193,12 +193,11 @@ class Form {
             }
         });
     }
-
-    /**
-     * Выполняется обработка AJAX-запросов, а также взаимодействие с DOM-элементом id=resultContainer.
-     * @param response
-     * @private
-     */
+/**
+ * Выполняется обработка AJAX-запросов, а также взаимодействие с DOM-элементом id=resultContainer.
+ * @param response
+ * @private
+ */
     _parseResponse(response) {
         let message = '';
         let state = response['status'];
@@ -230,10 +229,9 @@ class Form {
         this.resultContainer
             .addState(state, message);
     }
-
-    /**
-     * Отправить AJAX-запрос.
-     */
+/**
+ * Отправить AJAX-запрос.
+ */
     _sendRequest() {
         let promise = new Promise((resolve, reject) => {
             this.submitButton.disable();
