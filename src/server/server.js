@@ -36,7 +36,7 @@ app.get('/', (request, response) => {
     response.end();
 });
 
-app.get('/json', (request, response) => {
+app.get('/request', (request, response) => {
     console.log(request.url);
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(getRandomAnswer());
