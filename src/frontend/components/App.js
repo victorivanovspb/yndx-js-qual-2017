@@ -9,7 +9,7 @@ import Submit from './Submit';
 export default class App extends React.Component {
     render() {
         return (
-            <form id='myForm' action='json/'>
+            <form id='myForm' action='request/'>
                 <Name />
                 <Email />
                 <Phone />
