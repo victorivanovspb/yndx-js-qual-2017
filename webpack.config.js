@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -27,7 +28,11 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
             'window.jquery': 'jquery'
-        })
+        }),
+        new CopyPlugin([
+            {from: './src/server.js', to: './server/start.js'},
+            {from: './src/json', to: './server/json'},
+        ])
     ],
     module: {
         rules: [
