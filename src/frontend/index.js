@@ -1,8 +1,12 @@
 'use strict';
 
+/*eslint-disable no-unused-vars*/
 import React from 'react';
+/*eslint-enable no-unused-vars*/
 import ReactDOM from 'react-dom';
+/*eslint-disable no-unused-vars*/
 import App from './components/App.js';
+/*eslint-enable no-unused-vars*/
 
 import './css/styles.scss';
 import './bootstrap/bootstrap.js'
