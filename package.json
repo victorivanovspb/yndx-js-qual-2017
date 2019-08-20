@@ -7,7 +7,8 @@
     "webpack": "webpack",
     "build": "webpack -d",
     "prod": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "server": "node ./dist/server/start.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,10 @@
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.8.0",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.2.0",
@@ -35,6 +38,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0"
   }

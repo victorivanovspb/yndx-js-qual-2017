@@ -1,20 +1,28 @@
 'use strict';
 
-let fs = require('fs');
-let express = require('express');
-let app = express();
+const fs = require('fs');
+const express = require('express');
+const app = express();
+const port = 3000;
 
-app.use('/lib', express.static('./lib'));
-app.use('/js', express.static('./js/dist'));
-app.use('/css', express.static('./css'));
-app.use('/json', express.static('./json'));
+const getResultName = () => {
+    if (Math.random() > .5) {
+        return 'progress';
+    }
+    return (Math.random() > .5) ? 'success' : 'error';
+};
+
+app.use('/index.html', express.static('./dist/index.html'));
+app.use('/index.js', express.static('./dist/index.js'));
+app.use('/main.css', express.static('./dist/main.css'));
+app.use('/json', express.static('./dist/server/json'));
 
 app.get('/', (request, response) => {
     console.log(request.url);
 
     response.writeHead(200, {'Content-Type': 'text/html'});
     response.write(
-        fs.readFileSync('index.html')
+        fs.readFileSync('./dist/index.html')
     );
     response.end();
 });
@@ -22,17 +30,12 @@ app.get('/', (request, response) => {
 app.get('/json', (request, response) => {
     console.log(request.url);
 
-    let fileName = (Math.random() > .5)
-        ? 'progress'
-        : (Math.random() > .5)
-            ? 'success'
-            : 'error';
-
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(
-        fs.readFileSync(`./json/${fileName}.json`)
+        fs.readFileSync(`./dist/server/json/${ getResultName() }.json`)
     );
     response.end();
 });
 
-app.listen(8181);
+console.log(`Starting server at localhost:${ port }`);
+app.listen(port);
