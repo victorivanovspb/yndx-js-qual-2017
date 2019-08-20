@@ -9,14 +9,14 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './src/frontend/index.js',
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './src/frontend/index.html'
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css'
@@ -30,8 +30,8 @@ module.exports = {
             'window.jquery': 'jquery'
         }),
         new CopyPlugin([
-            {from: './src/server.js', to: './server/start.js'},
-            {from: './src/json', to: './server/json'},
+            {from: './src/server/server.js', to: './server/start.js'},
+            {from: './src/server/json', to: './server/json'},
         ])
     ],
     module: {
