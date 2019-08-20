@@ -17,12 +17,17 @@ $ npm run build
 $ npm run prod
 ```
 
-Запуск тестов
+Запуск тестов:
 ```bash
 $ npm run test
 ```
 
-Запуск сервера по адресу `localhost:3000`
+Запуск анализатора кода `eslint`:
+```bash
+$ npm run linter
+```
+
+Запуск сервера по адресу `localhost:3000`:
 ```bash
 $ npm run server
 ```
