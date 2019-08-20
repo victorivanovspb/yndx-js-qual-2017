@@ -1,24 +1,20 @@
 'use strict';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App.js';
+
 import './css/styles.scss';
 import './bootstrap/bootstrap.js'
 
+ReactDOM.render(<App />, document.getElementById('root'));
+
 jQuery(document)
     .ready(function($) {
-        console.log('jquery');
-
-        /*
-        ((selector) => {
-            const color = (Math.random() > 0.5) ? '#eee' : '#fff';
-            selector.css('background-color', color);
-        })( $('body') );
-        */
-
         window['MyForm'] = new Form('myForm', 'resultContainer');
         MyForm.$form
             .find('button#submitButton')
             .click(MyForm.submit.bind(MyForm));
-
         MyForm.setData({
             fio : 'AAA BBB CCC',
             email : 'aaa-bbb-ccc@yandex.ru',
@@ -26,9 +22,6 @@ jQuery(document)
             spec : 'Some field'
         });
     });
-
-
-'use strict';
 
 class SubmitButton {
     constructor($form, id) {
