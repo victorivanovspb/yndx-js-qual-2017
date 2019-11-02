@@ -266,5 +266,3 @@ class Form {
             });
     }
 }
-
-// export { nameMatcher, emailMatcher, phoneMatcher }
