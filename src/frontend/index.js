@@ -91,9 +91,7 @@ class FormInput {
         return this;
     }
 
-    prepare() {
-
-    }
+    prepare() { }
 
     check() {
         let str = this.$input.val();
@@ -129,7 +127,7 @@ class Form {
         let fio = new FormInput(this.$form, 'fio');
         fio.addPrepare((str) => { return str.trim(); });
         fio.addChecker((str) => {
-            let result = str.match(/^[^\s]+[\s]+[^\s]+[\s]+[^\s]+$/);
+            const result = str.match(/^[^\s]+[\s]+[^\s]+[\s]+[^\s]+$/);
             return (result !== null);
         });
         this.inputs.push(fio);
@@ -137,7 +135,7 @@ class Form {
         let email = new FormInput(this.$form, 'email');
         email.addPrepare((str) => { return str.trim(); });
         email.addChecker((str) => {
-            let result = str.match(/^[A-Za-z0-9.,_%+-]+@(ya\.ru|(yandex\.(ru|ua|by|kz|com)))$/);
+            const result = str.match(/^[A-Za-z0-9.,_%+-]+@(ya\.ru|(yandex\.(ru|ua|by|kz|com)))$/);
             return (result !== null);
         });
         this.inputs.push(email);
@@ -145,7 +143,7 @@ class Form {
         let phone = new FormInput(this.$form, 'phone');
         phone.addPrepare((str) => { return str.trim().replace(/\s/g, ''); });
         phone.addChecker((str) => {
-            let result = str.match(/^\+7\(\d{3}\)\d{3}[-]\d{2}[-]\d{2}$/);
+            const result = str.match(/^\+7\(\d{3}\)\d{3}[-]\d{2}[-]\d{2}$/);
             return (result !== null);
         });
         phone.addChecker((str) => {
@@ -167,7 +165,7 @@ class Form {
      * и массивом названий полей, которые не прошли валидацию (errorFields).
      */
     validate() {
-        let errors = [];
+        const errors = [];
         this.inputs.forEach((input) => {
             if (!input.check()) {
                 errors.push(input.name);
@@ -184,7 +182,7 @@ class Form {
      * Вызывается по клику на кнопку отправить.
      */
     submit() {
-        let answer = this.validate();
+        const answer = this.validate();
         if (answer.isValid) {
             this._sendRequest();
         }
@@ -260,7 +258,7 @@ class Form {
      * Отправить AJAX-запрос.
      */
     _sendRequest() {
-        let promise = new Promise((resolve, reject) => {
+        const promise = new Promise((resolve, reject) => {
             this.submitButton.disable();
             let data = this.getData();
             $.ajax({
@@ -273,14 +271,11 @@ class Form {
                 cache: false
             });
         });
-
-        promise.then((response) => {
-            this._parseResponse(response);
-        })
+        promise
+            .then(response => this._parseResponse(response))
             .catch((reject) => {
                 console.error(reject);
                 this.submitButton.enable();
             });
     }
 }
-
