@@ -8,6 +8,8 @@ import ReactDOM from 'react-dom';
 import App from './components/App.js';
 /*eslint-enable no-unused-vars*/
 
+import { nameMatcher, emailMatcher, phoneMatcher, phoneCounter } from "./matchers";
+
 import './css/styles.scss';
 import './bootstrap/bootstrap.js'
 
@@ -125,34 +127,19 @@ class Form {
         this.inputs = [];
 
         let fio = new FormInput(this.$form, 'fio');
-        fio.addPrepare((str) => { return str.trim(); });
-        fio.addChecker((str) => {
-            const result = str.match(/^[^\s]+[\s]+[^\s]+[\s]+[^\s]+$/);
-            return (result !== null);
-        });
+        fio.addPrepare(str =>str.trim());
+        fio.addChecker(str => nameMatcher(str) !== null);
         this.inputs.push(fio);
 
         let email = new FormInput(this.$form, 'email');
-        email.addPrepare((str) => { return str.trim(); });
-        email.addChecker((str) => {
-            const result = str.match(/^[A-Za-z0-9.,_%+-]+@(ya\.ru|(yandex\.(ru|ua|by|kz|com)))$/);
-            return (result !== null);
-        });
+        email.addPrepare(str => str.trim());
+        email.addChecker(str => emailMatcher(str) !== null);
         this.inputs.push(email);
 
         let phone = new FormInput(this.$form, 'phone');
-        phone.addPrepare((str) => { return str.trim().replace(/\s/g, ''); });
-        phone.addChecker((str) => {
-            const result = str.match(/^\+7\(\d{3}\)\d{3}[-]\d{2}[-]\d{2}$/);
-            return (result !== null);
-        });
-        phone.addChecker((str) => {
-            let sum = 0;
-            for (let c of str.replace(/[^\d]/g, '')) {
-                sum += parseInt(c, 10);
-            }
-            return sum <= 30;
-        });
+        phone.addPrepare(str => str.trim().replace(/\s/g, ''));
+        phone.addChecker(str => phoneMatcher(str) !== null);
+        phone.addChecker(str => phoneCounter(str));
         this.inputs.push(phone);
 
         this.resultContainer = new ResultContainer($(document), resultId);
@@ -279,3 +266,5 @@ class Form {
             });
     }
 }
+
+// export { nameMatcher, emailMatcher, phoneMatcher }
