@@ -4,22 +4,8 @@ import { nameMatcher as nm, emailMatcher as em, phoneMatcher as pm } from './mat
 
 describe('nameMatcher set', () => {
     const testName = (name, description, fn, ...props) => {
-        test(`"${ name }" ${ description }`, () => {
-            const f = (acc, item) => acc[item];
-            props.reduce(f, expect(fn(name)))();
-            /* let exp = expect(fn(name));
-            for (let i = 0; i < props.length; i += 1) {
-               exp = exp[props[i]];
-            }
-            exp(); */
-        });
+        test(`"${ name }" ${ description }`, () => props.reduce((acc, item) => acc[item], expect(fn(name)))());
     };
-    /* {
-        const name = 'AAA BBB CCC';
-        test(`correct name "${name}" (3 words) is not null`, () => {
-            expect(nm(name)).not.toBeNull();
-        });
-    } */
     testName('AAA BBB CCC', 'correct name (3 words) is not null', nm, 'not', 'toBeNull');
     testName('老师 老师 老师', 'correct name (3 words) is not null', nm, 'not', 'toBeNull');
     testName('AAA BBB', 'incorrect name (2 words) is null', nm,'toBeNull');
