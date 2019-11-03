@@ -3,32 +3,13 @@
 import { nameMatcher as nm, emailMatcher as em, phoneMatcher as pm } from './matchers';
 
 describe('nameMatcher set', () => {
-    {
-        const name = 'AAA BBB CCC';
-        test(`correct name "${name}" (3 words) is not null`, () => {
-            expect(nm(name)).not.toBeNull();
-        });
-    } {
-        const name = '  AAA BBB CCC ';
-        test(`correct name "${name}" (3 words) is not null`, () => {
-            expect(nm(name)).not.toBeNull();
-        });
-    } {
-        const name = '老师 老师 老师';
-        test(`correct name "${ name }" (3 words) is not null`, () => {
-            expect(nm(name)).not.toBeNull();
-        });
-    } {
-        const name = 'AAA BBB';
-        test(`incorrect name "${ name }" (< 3 words) is null`, () => {
-            expect(nm(name)).toBeNull();
-        });
-    } {
-        const name = '111 222 333 444';
-        test(`incorrect name "${ name }" (< 3 words) is null`, () => {
-            expect(nm(name)).toBeNull();
-        });
-    }
+    const testName = (name, description, fn, ...props) => {
+        test(`"${ name }" ${ description }`, () => props.reduce((acc, item) => acc[item], expect(fn(name)))());
+    };
+    testName('AAA BBB CCC', 'correct name (3 words) is not null', nm, 'not', 'toBeNull');
+    testName('老师 老师 老师', 'correct name (3 words) is not null', nm, 'not', 'toBeNull');
+    testName('AAA BBB', 'incorrect name (2 words) is null', nm,'toBeNull');
+    testName('111 222 333 444', 'incorrect name (> 4 words) is null', nm,'toBeNull');
 });
 
 describe('emailMatcher set', () => {
