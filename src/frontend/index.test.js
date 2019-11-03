@@ -10,9 +10,10 @@ const testWrapper = (value, description, fn, ...props) => {
 
 describe('nameMatcher set', () => {
     const testName = (name, description, ...props) => testWrapper(name, description, nm, ...props);
-    testName('AAA BBB CCC', 'correct name (3 words) is not null', 'not', 'toBeNull');
-    testName('老师 老师 老师', 'correct name (3 words) is not null', 'not', 'toBeNull');
-    testName('Фамилия Имя Отчество', 'correct name (3 words) is not null', 'not', 'toBeNull');
+    const validNames = ['AAA BBB CCC', '老师 老师 老师', 'Фамилия Имя Отчество'];
+    for (let i in validNames) {
+        testName(validNames[i], 'correct name (3 words) is not null', 'not', 'toBeNull');
+    }
     testName('AAA BBB', 'incorrect name (2 words) is null','toBeNull');
     testName('111 222 333 444', 'incorrect name (> 4 words) is null','toBeNull');
 });
