@@ -7,7 +7,7 @@
     "webpack": "webpack",
     "build": "webpack -d",
     "prod": "webpack -p",
-    "test": "NODE_ENV=test jest ./src/frontend/index.test.js",
+    "test": "NODE_ENV=test jest src/frontend/matchers.test.js",
     "linter": "./node_modules/.bin/eslint ./src; exit 0;",
     "server": "node ./dist/server/start.js"
   },
