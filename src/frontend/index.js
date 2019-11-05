@@ -15,8 +15,9 @@ import './bootstrap/bootstrap.js'
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
+/*eslint-disable no-undef*/
 jQuery(document)
-    .ready(function($) {
+    .ready(function($) {  // eslint-disable-line
         window['MyForm'] = new Form('myForm', 'resultContainer');
         MyForm.$form
             .find('button#submitButton')
@@ -28,6 +29,7 @@ jQuery(document)
             spec : 'Some field'
         });
     });
+/*eslint-enable no-undef*/
 
 class SubmitButton {
     constructor($form, id) {
@@ -123,7 +125,7 @@ class FormInput {
  */
 class Form {
     constructor(formId, resultId) {
-        this.$form = $(`#${formId}`);
+        this.$form = $(`#${formId}`); // eslint-disable-line
         this.inputs = [];
 
         let fio = new FormInput(this.$form, 'fio');
@@ -142,7 +144,7 @@ class Form {
         phone.addChecker(str => phoneCounter(str));
         this.inputs.push(phone);
 
-        this.resultContainer = new ResultContainer($(document), resultId);
+        this.resultContainer = new ResultContainer($(document), resultId); // eslint-disable-line
         this.submitButton = new SubmitButton(this.$form, 'submitButton');
     }
 
@@ -248,7 +250,7 @@ class Form {
         const promise = new Promise((resolve, reject) => {
             this.submitButton.disable();
             let data = this.getData();
-            $.ajax({
+            $.ajax({ // eslint-disable-line
                 type: "GET",
                 url: this.$form.attr("action"),
                 dataType: "json",

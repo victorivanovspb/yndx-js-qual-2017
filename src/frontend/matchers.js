@@ -19,7 +19,7 @@ export function phoneMatcher(phone) {
 
 export function phoneCounter(phone) {
     let sum = 0;
-    for (let c of phone.replace(/[^\d]/g, '')) {
+    for (const c of phone.replace(/[^\d]/g, '')) {  // eslint-disable-line
         sum += parseInt(c, 10);
     }
     return sum <= 30;
