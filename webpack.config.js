@@ -31,6 +31,7 @@ module.exports = {
         }),
         new CopyPlugin([
             {from: './src/server/server.js', to: './server/start.js'},
+            {from: './src/server/files.js', to: './server/files.js'},
             {from: './src/server/json', to: './server/json'},
         ])
     ],

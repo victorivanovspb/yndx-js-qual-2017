@@ -7,7 +7,9 @@
     "webpack": "webpack",
     "build": "webpack -d",
     "prod": "webpack -p",
-    "test": "NODE_ENV=test jest src/frontend/matchers.test.js",
+    "test": "npm run test-front && npm run test-server && echo \"\nAll tests are called\" && exit 0",
+    "test-front": "NODE_ENV=test jest src/frontend/matchers.test.js",
+    "test-server": "NODE_ENV=test jest src/server/files.test.js --detectOpenHandles",
     "linter": "./node_modules/.bin/eslint ./src; exit 0;",
     "server": "node ./dist/server/start.js"
   },
