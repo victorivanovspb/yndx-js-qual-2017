@@ -42,7 +42,7 @@ app.get('/', (request, response) => {
 app.get('/request', (request, response) => {
     console.log(request.url);
     getRandomAnswer()
-        .then(data => {
+        .then((data) => {
             response.writeHead(200, {'Content-Type': 'application/json'});
             response.write(data);
             response.end();
